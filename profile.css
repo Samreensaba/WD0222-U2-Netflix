@@ -1,0 +1,31 @@
+body{
+    width: 100%;
+    background-color: #141414;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    color: whitesmoke;
+    font-size: 13.33px;
+}
+.navbar{
+    height: 68px;
+}
+.logo{
+    width: 80px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+.btn{
+    color: whitesmoke;
+    background-color: inherit;
+    border: 1px solid grey;
+    font-size: 10px;
+
+}
+.profile{
+    max-width: 100px;
+}
+.name{
+    background-color: grey;
+    max-height: 25px;
+    width: 250px;
+}
