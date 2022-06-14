@@ -87,8 +87,17 @@ container_1{
 .flex{
     display: flex;
 }
-trending{
+.trending{
     margin-left: 50px;
+}
+.edit{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding-left: 2px;
+    background-color: #141414;
+    color: white;
+    
 }
 footer{
     width: 50%;
