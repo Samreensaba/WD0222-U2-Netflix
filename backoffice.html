@@ -104,7 +104,7 @@ footer{
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link text-white" href="./homepage.html">Home <span class="sr-only">(current)</span></a>
             </li>         
           </ul>
           <div class="align-items-center row mr-5 d-flex">
@@ -147,12 +147,12 @@ footer{
                   <input type="text" class="form-control" id="category" placeholder="Enter Category">
                 </div>
                 <div class="form-group">
-                  <label for="image">Image Url</label>
-                  <input type="text" class="form-control" id="image" placeholder="Enter image URL">
+                  <label for="imageUrl">Image Url</label>
+                  <input type="text" class="form-control" id="imageUrl" placeholder="Enter image URL">
                 </div>
-                <button type="button" class="btn btn-primary">Edit</button>
+                <button type="button" class="btn btn-primary" onclick="editMovie()">Edit</button>
                 <button type="submit" class="btn btn-success" >Submit</button>
-                <button type="Delete" class="btn btn-danger">Delete</button>  
+                <button type="button" class="btn btn-danger" onclick="deleteMovie()">Delete</button>  
             </form>
         </div> 
                 
@@ -202,6 +202,8 @@ footer{
       </div>
       </footer>
       <script>
+        const movieId = new URLSearchParams(window.location.search).get("_id")
+        const movieCategory = new URLSearchParams(window.location.search).get("category")
         const addMovie = async(event) =>{
         event.preventDefault();
          let movie = {
@@ -220,7 +222,41 @@ footer{
             })
          })  
         }
-        
+    
+        const deleteMovie = async()=>{
+            const response = await fetch('https://striveschool-api.herokuapp.com/api/movies/'+movieId, {
+                method: "DELETE",
+                headers: {
+                        "Content-Type": "application/json",
+                        "Authorization":
+                            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
+                    }
+            })
+            const deletedMovie = await response.json()
+
+        }
+
+        const editMovie = async()=>{
+            try{
+            let response = await fetch('https://striveschool-api.herokuapp.com/api/movies/'+movieCategory, {
+                method: "GET",
+                headers:({
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzMzk4MjdmZmQ0OTAwMTU4YTdhOTkiLCJpYXQiOjE2NTQ4NjQyNTgsImV4cCI6MTY1NjA3Mzg1OH0.RttuTQT4ijhKTfkDsydeu2sCam45Aj3cwonsMbFOsmw",
+            
+                })
+            })
+            const movies = await response.json()
+            const  movieFound = movies.filter((singleMovie)=>{return  singleMovie._id === movieId})[0]
+            console.log(movieFound)
+            let inputs = document.querySelectorAll('input')
+            inputs.forEach((input)=>{
+                input.value = movieFound[input.id]
+            })
+            }catch(err){
+            console.log(err)
+            }
+        }
+
         
     </script>
     
