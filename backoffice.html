@@ -140,7 +140,7 @@ footer{
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea type="text" class="form-control" id="description" rows="6" placeholder="Enter product description"></textarea>
+                    <input type="text" class="form-control" id="description" rows="6" placeholder="Enter product description"></input>
                 </div>
                 <div class="form-group">
                   <label for="category">Category</label>
@@ -210,7 +210,7 @@ footer{
             name: document.getElementById('name').value,
             description: document.getElementById('description').value,
             category: document.getElementById('category').value,
-            imageUrl: document.getElementById('image').value,
+            imageUrl: document.getElementById('imageUrl').value,
             }   
         console.log(movie)
         let response = await fetch('https://striveschool-api.herokuapp.com/api/movies', {
@@ -236,7 +236,8 @@ footer{
 
         }
 
-        const editMovie = async()=>{
+    
+        window.onload = async()=>{
             try{
             let response = await fetch('https://striveschool-api.herokuapp.com/api/movies/'+movieCategory, {
                 method: "GET",
@@ -257,7 +258,30 @@ footer{
             }
         }
 
-        
+    const editMovie = async() =>{
+      try{
+      let list = {
+            name: document.getElementById('name').value,
+            description: document.getElementById('description').value,
+            category: document.getElementById('category').value,
+            imageUrl: document.getElementById('imageUrl').value,
+            }
+      const movieEdit = await fetch('https://striveschool-api.herokuapp.com/api/movies/'+movieId,{
+        method: "PUT",
+        body: JSON.stringify(list),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
+         }
+      })
+      const response = await movieEdit.json()
+    }
+    catch(err){
+      console.log(err)
+    }
+
+    }  
     </script>
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

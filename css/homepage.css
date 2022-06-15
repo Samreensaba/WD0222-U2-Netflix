@@ -25,6 +25,7 @@ container_1{
     position: fixed;
     top: 0;
     background-color: rgb(20, 20, 20);
+    z-index: 1;
 }
 .nav-item{
     font-size: 11.3342px;
